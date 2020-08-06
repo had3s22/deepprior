@@ -244,7 +244,7 @@ def optimize(optimizer_type, parameters, closure, LR, num_iter, epoch):
             return optimizer
 
         def lr_decay(optimizer, epoch):
-            c = 20
+            c = 500
             if epoch % c == 0:
                 new_lr = LR / (10 ** (epoch // c))
                 optimizer = set_lr(optimizer, new_lr)
@@ -252,8 +252,8 @@ def optimize(optimizer_type, parameters, closure, LR, num_iter, epoch):
             return optimizer
 
         optimizer = torch.optim.Adam(parameters, lr=LR)
-        optimizer = lr_decay(optimizer, epoch)
         for j in range(num_iter):
+            optimizer = lr_decay(optimizer, epoch)
             optimizer.zero_grad()
             closure()
             optimizer.step()
