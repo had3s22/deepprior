@@ -207,7 +207,7 @@ def torch_to_np(img_var):
     return img_var.detach().cpu().numpy()[0]
 
 
-def optimize(optimizer_type, parameters, closure, LR, num_iter, epoch):
+def optimize(optimizer_type, parameters, closure, LR, num_iter):
     """Runs optimization loop.
 
     Args:
@@ -253,7 +253,7 @@ def optimize(optimizer_type, parameters, closure, LR, num_iter, epoch):
 
         optimizer = torch.optim.Adam(parameters, lr=LR)
         for j in range(num_iter):
-            optimizer = lr_decay(optimizer, epoch)
+            optimizer = lr_decay(optimizer, num_iter)
             optimizer.zero_grad()
             closure()
             optimizer.step()
