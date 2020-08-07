@@ -253,8 +253,7 @@ def optimize(optimizer_type, parameters, closure, LR, num_iter):
 
         optimizer = torch.optim.Adam(parameters, lr=LR)
         for j in range(num_iter):
-            print('hell')
-            optimizer = lr_decay(optimizer, num_iter)
+            optimizer = lr_decay(optimizer, j)
             optimizer.zero_grad()
             closure()
             optimizer.step()
